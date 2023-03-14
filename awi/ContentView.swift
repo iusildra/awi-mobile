@@ -50,43 +50,22 @@ struct FooterView: View {
     }
 }
 
-struct CardView: View, Hashable {
-    var title: String
-    var subtitle: String
-    
-    var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Text(title)
-                .font(.headline)
-                .fontWeight(.bold)
-            
-            Text(subtitle)
-                .font(.subheadline)
-        }
+func createCustomCard<Content: View>(content: Content) -> some View {
+    content
         .padding()
         .background(Color.white)
         .cornerRadius(10)
         .shadow(radius: 5)
-    }
-}
-
-struct HorizontalCardListView: View {
-    var cards: [CardView]
-    
-    var body: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            LazyHStack(spacing: 20) {
-                ForEach(cards, id: \.self) { card in
-                    card
-                }
-            }
-            .padding(.horizontal, 20)
-        }
-    }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+    }
+}
+
+struct FetchableList_Preview: PreviewProvider {
+    static var previews: some View {
+        FetchableList<GameModel, GameCardContent>(apiRoute: "https://awi-mano-api.cluster-ig4.igpolytech.fr/game", displayCardFunc: GameCardContent.init)
     }
 }
