@@ -18,6 +18,7 @@
 		A081EE0829B201BE004E2960 /* awiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A081EE0729B201BE004E2960 /* awiTests.swift */; };
 		A081EE1229B201BE004E2960 /* awiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A081EE1129B201BE004E2960 /* awiUITests.swift */; };
 		A081EE1429B201BE004E2960 /* awiUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A081EE1329B201BE004E2960 /* awiUITestsLaunchTests.swift */; };
+		A0B9472E29C06BE30039813B /* FetchableList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B9472D29C06BE30039813B /* FetchableList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		A081EE0D29B201BE004E2960 /* awiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = awiUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A081EE1129B201BE004E2960 /* awiUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = awiUITests.swift; sourceTree = "<group>"; };
 		A081EE1329B201BE004E2960 /* awiUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = awiUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		A0B9472D29C06BE30039813B /* FetchableList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchableList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +120,7 @@
 				A081EDFA29B201BD004E2960 /* Assets.xcassets */,
 				A081EDFC29B201BD004E2960 /* Preview Content */,
 				6A457638A5035615F5F263A8 /* Pages */,
+				A0B9472D29C06BE30039813B /* FetchableList.swift */,
 			);
 			path = awi;
 			sourceTree = "<group>";
@@ -277,6 +280,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0B9472E29C06BE30039813B /* FetchableList.swift in Sources */,
 				A081EDF929B201BD004E2960 /* ContentView.swift in Sources */,
 				A081EDF729B201BD004E2960 /* awiApp.swift in Sources */,
 				6A457C64E99CCD8B0C84302C /* GamesView.swift in Sources */,
