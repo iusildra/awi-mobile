@@ -3,16 +3,14 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+            HeaderView()
+
+            FooterView()
         }
-        .padding()
     }
 }
 
-struct NavbarView: View {
+struct HeaderView: View {
     var body: some View {
         GeometryReader { geometry in
             Text("FestiGames")
@@ -20,35 +18,35 @@ struct NavbarView: View {
                 .foregroundColor(Color(red: 0.933, green: 0.933, blue: 0.933, opacity: 1.0))
                 .background(Color(red: 0.651, green: 0.294, blue: 0.165, opacity: 1))
                 .font(Font.custom("Inter-Bold", size: 24))
-        }
+        }.frame(height:80)
     }
 }
 
 struct FooterView: View {
+    @State var selectedTab = 0
     var body: some View {
-        Rectangle()
-            .frame(height: 80)
-            .foregroundColor(Color(red: 0.651, green: 0.294, blue: 0.165, opacity: 1))
-    }
-}
-
-struct BorderedView<Content: View>: View {
-    var content: Content
-    
-    init(@ViewBuilder content: () -> Content) {
-        self.content = content()
-    }
-    
-    var body: some View {
-        VStack {
-            NavbarView()
-            HStack {
-                content
-                    .padding(10)
+            TabView(selection: $selectedTab) {
+                HomeView()
+                    .tabItem {
+                        Image(systemName: "house")
+                        Text("Home")
+                    }.tag(0)
+                GamesView()
+                    .tabItem {
+                        Image(systemName: "gamecontroller")
+                        Text("Games")
+                    }.tag(1)
+                ZonesView()
+                    .tabItem {
+                        Image(systemName: "map")
+                        Text("Zones")
+                    }.tag(2)
+                ProfileView()
+                    .tabItem {
+                        Image(systemName: "person")
+                        Text("Profile")
+                    }.tag(3)
             }
-            Spacer()
-            FooterView()
-        }
     }
 }
 
@@ -89,12 +87,6 @@ struct HorizontalCardListView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        BorderedView {
-        //    HorizontalCardListView {
-                CardView(title: "Test card", subtitle: "Magnificient card")
-                CardView(title: "Test card", subtitle: "Magnificient card")
-                CardView(title: "Test card", subtitle: "Magnificient card")
-//            }
-        }
+        ContentView()
     }
 }
