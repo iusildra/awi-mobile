@@ -4,7 +4,7 @@
 
 import SwiftUI
 
-struct GameModel: FestivalEntities {
+struct GameModel: Decodable, Hashable {
     let id: UUID
     let name: String
     let type: String
@@ -35,7 +35,6 @@ struct GameCardContent: View, Hashable {
 
 struct GamesView: View {
     var body: some View {
-        
         VStack {
             Text("Games");
             Spacer()

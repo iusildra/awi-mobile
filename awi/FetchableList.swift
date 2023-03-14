@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct FetchableList<T: FestivalEntities, Content: View>: View {
+struct FetchableList<T: Hashable & Decodable, Content: View>: View {
     @State private var items: [T] = []
     @State private var isLoading = false
     private let apiRoute: String
@@ -63,9 +63,4 @@ struct FetchableList<T: FestivalEntities, Content: View>: View {
             }
         }.resume()
     }
-}
-
-protocol FestivalEntities: Codable, Identifiable, Hashable {
-    var id: UUID { get }
-    var name: String { get }
 }
