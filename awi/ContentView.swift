@@ -3,17 +3,21 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         VStack {
-            HeaderView()
-
             FooterView()
         }
     }
 }
 
 struct HeaderView: View {
+    let title: String
+    
+    init(title: String) {
+        self.title = title
+    }
+    
     var body: some View {
         GeometryReader { geometry in
-            Text("FestiGames")
+            Text(title)
                 .frame(width: geometry.size.width, height: 80)
                 .foregroundColor(Color(red: 0.933, green: 0.933, blue: 0.933, opacity: 1.0))
                 .background(Color(red: 0.651, green: 0.294, blue: 0.165, opacity: 1))
@@ -31,21 +35,16 @@ struct FooterView: View {
                         Image(systemName: "house")
                         Text("Home")
                     }.tag(0)
-                GamesView()
-                    .tabItem {
-                        Image(systemName: "gamecontroller")
-                        Text("Games")
-                    }.tag(1)
                 ZonesView()
                     .tabItem {
                         Image(systemName: "map")
                         Text("Zones")
-                    }.tag(2)
+                    }.tag(1)
                 ProfileView()
                     .tabItem {
                         Image(systemName: "person")
                         Text("Profile")
-                    }.tag(3)
+                    }.tag(1)
             }
     }
 }
@@ -66,6 +65,6 @@ struct ContentView_Previews: PreviewProvider {
 
 struct FetchableList_Preview: PreviewProvider {
     static var previews: some View {
-        FetchableList<GameModel, GameCardContent>(apiRoute: "https://awi-mano-api.cluster-ig4.igpolytech.fr/game", displayCardFunc: GameCardContent.init)
+        DisplayList<ZoneModel, ZoneCardContent>(apiRoute: "https://awi-mano-api.cluster-ig4.igpolytech.fr/zone", displayCardFunc: ZoneCardContent.init)
     }
 }
