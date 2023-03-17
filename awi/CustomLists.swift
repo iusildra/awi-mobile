@@ -8,9 +8,9 @@
 import Foundation
 import SwiftUI
 
-class FetchableList<T: Decodable, Content: View>: ObservableObject {
-    @Published var items: [T] = []
-    @Published var isLoading = false
+struct FetchableList<T: Decodable, Content: View>: View {
+    @State var items: [T] = []
+    @State var isLoading = false
     let apiRoute: String
     let contentFactory: ([T]) -> Content
     
@@ -23,7 +23,7 @@ class FetchableList<T: Decodable, Content: View>: ObservableObject {
     func fetchData() {
         self.isLoading = true
         
-        let url = URL(string: self.apiRoute)!
+        let url = URL(string: apiRoute)!
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let data = data {
                 do {
@@ -57,63 +57,53 @@ class FetchableList<T: Decodable, Content: View>: ObservableObject {
 }
 
 struct DisplayList<T: Decodable & Hashable, Content: View>: View {
-    @ObservedObject var itemList: FetchableList<T, Content>
+    let itemList: FetchableList<T, Content>
     let itemViewFactory: (T) -> Content
     let gridItems = [GridItem(.flexible(minimum: 100, maximum: .infinity), spacing: 10)]
     
     init(apiRoute: String, displayCardFunc: @escaping  (T) -> Content) {
         self.itemViewFactory = displayCardFunc
-        self.itemList = FetchableList(apiRoute: apiRoute)
+        self.itemList = FetchableList<T>(apiRoute: apiRoute, contentFactory: { (items: [T]) -> (any View) in viewContent(items: items) })
+    }
+    
+    func viewContent(items: [T]) -> any View {
+        ScrollView {
+            LazyVGrid(columns: gridItems, spacing: 10) {
+                ForEach(items, id: \.self) { item in
+                    itemViewFactory(item)
+                }
+            }
+            .padding()
+        }
     }
     
     var body: some View {
-        VStack {
-            if itemList.isLoading {
-                ProgressView()
-            } else {
-                ScrollView {
-                    LazyVGrid(columns: gridItems, spacing: 10) {
-                        ForEach(itemList.items, id: \.self) { item in
-                            itemViewFactory(item)
-                        }
-                    }
-                    .padding()
-                }
-            }
-        }
-        .onAppear {
-            itemList.fetchData()
-        }
+        itemList
     }
 }
 
 struct NavigableList<T: Decodable & Hashable, Content: View>: View {
-    @ObservedObject var itemList: FetchableList<T, Content>
+    let itemList: FetchableList<T, Content>
     let itemViewFactory: (T) -> Content
     let gridItems = [GridItem(.flexible(minimum: 100, maximum: .infinity), spacing: 10)]
     
     init(apiRoute: String, displayCardFunc: @escaping  (T) -> Content) {
         self.itemViewFactory = displayCardFunc
-        self.itemList = FetchableList(apiRoute: apiRoute)
+        self.itemList = FetchableList<T, Content>(apiRoute: apiRoute, contentFactory: viewContent)
+    }
+    
+    func viewContent(items: [T]) -> some View {
+        ScrollView {
+            LazyVGrid(columns: gridItems, spacing: 10) {
+                ForEach(itemList.items, id: \.self) { item in
+                    itemViewFactory(item)
+                }
+            }
+            .padding()
+        }
     }
     
     var body: some View {
-        VStack {
-            if itemList.isLoading {
-                ProgressView()
-            } else {
-                ScrollView {
-                    LazyVGrid(columns: gridItems, spacing: 10) {
-                        ForEach(itemList.items, id: \.self) { item in
-                            itemViewFactory(item)
-                        }
-                    }
-                    .padding()
-                }
-            }
-        }
-        .onAppear {
-            itemList.fetchData()
-        }
+        itemList
     }
 }

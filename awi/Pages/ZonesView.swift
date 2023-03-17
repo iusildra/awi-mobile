@@ -82,7 +82,7 @@ struct TableCell: View {
 struct ZonesView: View {
     var body: some View {
         VStack {
-            DisplayList<ZoneModel, ZoneCardContent>(apiRoute: "https://awi-mano-api.cluster-ig4.igpolytech.fr/zone", displayCardFunc: NavigableCard(itemView: ZoneCardContent, detailledView: MultiLayerTable, label: <#T##String#>, navTitle: <#T##String#>))
+            NavigableList<ZoneModel, ZoneCardContent>(apiRoute: "https://awi-mano-api.cluster-ig4.igpolytech.fr/zone", displayCardFunc: ZoneCardContent.init)
         }
     }
 }
