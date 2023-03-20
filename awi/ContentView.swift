@@ -16,13 +16,28 @@ struct HeaderView: View {
     }
     
     var body: some View {
-        GeometryReader { geometry in
-            Text(title)
-                .frame(width: geometry.size.width, height: 80)
-                .foregroundColor(Color(red: 0.933, green: 0.933, blue: 0.933, opacity: 1.0))
-                .background(Color(red: 0.651, green: 0.294, blue: 0.165, opacity: 1))
-                .font(Font.custom("Inter-Bold", size: 24))
-        }.frame(height:80)
+        HStack {
+            Spacer().frame(width: 20)
+            if let image = UIImage(named: "FestiGames") {
+                Image(uiImage: image)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 100, height: 100)
+            }else {
+                Text("FESTIGAMES")
+            }
+            Spacer()
+            Button(action: {
+                print("Button tapped")
+            }) {
+                Image(systemName: "magnifyingglass")
+                        .foregroundColor(.white)
+            }
+            Spacer().frame(width: 20)
+        }
+                .padding()
+                .foregroundColor(.white)
+                .background(Color(red: 0.651, green: 0.294, blue: 0.165, opacity: 1.0))
     }
 }
 
