@@ -65,6 +65,7 @@ struct ContentView_Previews: PreviewProvider {
 
 struct FetchableList_Preview: PreviewProvider {
     static var previews: some View {
-        DisplayList<ZoneModel>(apiRoute: "https://awi-mano-api.cluster-ig4.igpolytech.fr/zone", displayCardFunc: ZoneCardContent.init)
+        Text("Hello")
+        //DisplayList<ZoneModel>(apiRoute: "https://awi-mano-api.cluster-ig4.igpolytech.fr/zone", displayCardFunc: ZoneCardContent.init)
     }
 }

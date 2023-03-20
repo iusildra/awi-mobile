@@ -5,7 +5,7 @@
 //  Created by Lucas NOUGUIER on 14/03/2023.
 //
 
-import Foundation
+/*import Foundation
 import SwiftUI
 
 struct FetchableList<T: Decodable, Content: View>: View {
@@ -63,7 +63,7 @@ struct DisplayList<T: Decodable & Hashable, Content: View>: View {
     
     init(apiRoute: String, displayCardFunc: @escaping  (T) -> Content) {
         self.itemViewFactory = displayCardFunc
-        self.itemList = FetchableList<T>(apiRoute: apiRoute, contentFactory: { (items: [T]) -> (any View) in viewContent(items: items) })
+        self.itemList = FetchableList<T, Content>(apiRoute: apiRoute, contentFactory: { (items: [T]) -> (any View) in viewContent(items: items) })
     }
     
     func viewContent(items: [T]) -> any View {
@@ -106,4 +106,4 @@ struct NavigableList<T: Decodable & Hashable, Content: View>: View {
     var body: some View {
         itemList
     }
-}
+}*/
