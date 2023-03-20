@@ -4,12 +4,12 @@ struct VolunteerDTO {
     let id: String
     let username: String
     let firstName: String
-    let lastNmae: String
+    let lastName: String
     let email: String
     let isAdmin: Bool
 }
 
-struct VolunteerObserver {
+protocol VolunteerObserver {
     func changedUsername(username: String, id: String)
     func changedFirstName(firstName: String, id: String)
     func changedLastName(lastName: String, id: String)
@@ -48,7 +48,9 @@ class Volunteer: ObservableObject {
     }
     var email: String {
         didSet {
-            if email.count < 1  { email = oldValue } //TODO: check email with regex
+            let range = NSRange(location: 0, length: email.utf16.count)
+            let regex = try! NSRegularExpression(pattern: "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}")
+            if (email.count < 1 || (regex.firstMatch(in: email, range:range) != nil))  { email = oldValue }
             else { notifyObservers(change: .EMAIL)}
         }
     }
