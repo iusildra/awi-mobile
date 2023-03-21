@@ -47,10 +47,11 @@ class ZoneViewModel: ObservableObject, Subscriber, ZoneObserver {
     @Published var error: ZoneError = .NONE
     var delegate: ZoneViewModelDelegate?
     
-    init(name: String, nbRequiredVolunteers: Int, festivalId: String) {
-        self.name = name
-        self.nbRequiredVolunteers = nbRequiredVolunteers
-        self.festivalId = festivalId
+    init(zone: Zone) {
+        self.zone = zone
+        self.name = zone.name
+        self.nbRequiredVolunteers = zone.nbVolunteers
+        self.festivalId = zone.festivalId
     }
     
     func receive(subscription: Subscription) {
@@ -82,7 +83,7 @@ class ZoneViewModel: ObservableObject, Subscriber, ZoneObserver {
     }
     
     func changedNbVolunteers(nbVolunteers: Int, id: Int) {
-        <#code#>
+        
     }
     
     func changedName(name: String, id: Int) {

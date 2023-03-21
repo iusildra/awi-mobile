@@ -110,4 +110,8 @@ class ZoneIntent {
         }
     }
     
+    func addObserver(vm: ZoneViewModel) {
+        self.state.subscribe(vm)
+    }
+    
 }

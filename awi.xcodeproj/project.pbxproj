@@ -10,12 +10,12 @@
 		6A4573B6BCF74CF86B9F65F0 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4571B721F1D70FD605F395 /* HomeView.swift */; };
 		6A457466D255F720CC7B4E1C /* ZonesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A457C5B01D39837BBBE697B /* ZonesView.swift */; };
 		6A457C7E79C59186664BFE67 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4575787232A6B93F54F43C /* ProfileView.swift */; };
-		A0538B7829C847F3007F0F2C /* Zone.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0538B7729C847F3007F0F2C /* Zone.swift */; };
-		A06D195D29C8B7E500D081CC /* Assignments.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06D195C29C8B7E500D081CC /* Assignments.swift */; };
-		A06D196029C8BF7400D081CC /* Zone.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06D195F29C8BF7400D081CC /* Zone.swift */; };
-		A06D196329C8CADD00D081CC /* Zone.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06D196229C8CADD00D081CC /* Zone.swift */; };
-		A06D196629C8D1BD00D081CC /* ZoneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06D196529C8D1BD00D081CC /* ZoneViewModel.swift */; };
-		A06D196929C8D25600D081CC /* Zone.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06D196829C8D25600D081CC /* Zone.swift */; };
+		A0538B7829C847F3007F0F2C /* ZoneModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0538B7729C847F3007F0F2C /* ZoneModel.swift */; };
+		A06D195D29C8B7E500D081CC /* AssignmentsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06D195C29C8B7E500D081CC /* AssignmentsModel.swift */; };
+		A06D196029C8BF7400D081CC /* ZoneIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06D195F29C8BF7400D081CC /* ZoneIntent.swift */; };
+		A06D196329C8CADD00D081CC /* ZoneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06D196229C8CADD00D081CC /* ZoneViewModel.swift */; };
+		A06D196629C8D1BD00D081CC /* ZoneViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06D196529C8D1BD00D081CC /* ZoneViewModelDelegate.swift */; };
+		A06D196929C8D25600D081CC /* ZoneDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06D196829C8D25600D081CC /* ZoneDAO.swift */; };
 		A06D196B29C8D4C000D081CC /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06D196A29C8D4C000D081CC /* API.swift */; };
 		A081EDF729B201BD004E2960 /* awiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A081EDF629B201BD004E2960 /* awiApp.swift */; };
 		A081EDF929B201BD004E2960 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A081EDF829B201BD004E2960 /* ContentView.swift */; };
@@ -24,11 +24,12 @@
 		A081EE0829B201BE004E2960 /* awiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A081EE0729B201BE004E2960 /* awiTests.swift */; };
 		A081EE1229B201BE004E2960 /* awiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A081EE1129B201BE004E2960 /* awiUITests.swift */; };
 		A081EE1429B201BE004E2960 /* awiUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A081EE1329B201BE004E2960 /* awiUITestsLaunchTests.swift */; };
-		A09BE17F29C853C000B38572 /* Festival.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09BE17E29C853C000B38572 /* Festival.swift */; };
-		A09BE18129C85B1500B38572 /* Timeslot.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09BE18029C85B1500B38572 /* Timeslot.swift */; };
-		A09BE18329C85E3B00B38572 /* FestivalDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09BE18229C85E3B00B38572 /* FestivalDay.swift */; };
-		A09BE18529C876E600B38572 /* Volunteer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09BE18429C876E600B38572 /* Volunteer.swift */; };
+		A09BE17F29C853C000B38572 /* FestivalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09BE17E29C853C000B38572 /* FestivalModel.swift */; };
+		A09BE18129C85B1500B38572 /* TimeslotModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09BE18029C85B1500B38572 /* TimeslotModel.swift */; };
+		A09BE18329C85E3B00B38572 /* FestivalDayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09BE18229C85E3B00B38572 /* FestivalDayModel.swift */; };
+		A09BE18529C876E600B38572 /* VolunteerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09BE18429C876E600B38572 /* VolunteerModel.swift */; };
 		A0B9472E29C06BE30039813B /* CustomLists.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B9472D29C06BE30039813B /* CustomLists.swift */; };
+		A0E8820D29C9926B00F14CE4 /* ZoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E8820C29C9926B00F14CE4 /* ZoneView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,12 +53,12 @@
 		6A4571B721F1D70FD605F395 /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		6A4575787232A6B93F54F43C /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		6A457C5B01D39837BBBE697B /* ZonesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZonesView.swift; sourceTree = "<group>"; };
-		A0538B7729C847F3007F0F2C /* Zone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zone.swift; sourceTree = "<group>"; };
-		A06D195C29C8B7E500D081CC /* Assignments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assignments.swift; sourceTree = "<group>"; };
-		A06D195F29C8BF7400D081CC /* Zone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zone.swift; sourceTree = "<group>"; };
-		A06D196229C8CADD00D081CC /* Zone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zone.swift; sourceTree = "<group>"; };
-		A06D196529C8D1BD00D081CC /* ZoneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoneViewModel.swift; sourceTree = "<group>"; };
-		A06D196829C8D25600D081CC /* Zone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zone.swift; sourceTree = "<group>"; };
+		A0538B7729C847F3007F0F2C /* ZoneModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoneModel.swift; sourceTree = "<group>"; };
+		A06D195C29C8B7E500D081CC /* AssignmentsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentsModel.swift; sourceTree = "<group>"; };
+		A06D195F29C8BF7400D081CC /* ZoneIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoneIntent.swift; sourceTree = "<group>"; };
+		A06D196229C8CADD00D081CC /* ZoneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoneViewModel.swift; sourceTree = "<group>"; };
+		A06D196529C8D1BD00D081CC /* ZoneViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoneViewModelDelegate.swift; sourceTree = "<group>"; };
+		A06D196829C8D25600D081CC /* ZoneDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoneDAO.swift; sourceTree = "<group>"; };
 		A06D196A29C8D4C000D081CC /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		A081EDF329B201BD004E2960 /* awi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = awi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A081EDF629B201BD004E2960 /* awiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = awiApp.swift; sourceTree = "<group>"; };
@@ -69,11 +70,12 @@
 		A081EE0D29B201BE004E2960 /* awiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = awiUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A081EE1129B201BE004E2960 /* awiUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = awiUITests.swift; sourceTree = "<group>"; };
 		A081EE1329B201BE004E2960 /* awiUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = awiUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		A09BE17E29C853C000B38572 /* Festival.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Festival.swift; sourceTree = "<group>"; };
-		A09BE18029C85B1500B38572 /* Timeslot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timeslot.swift; sourceTree = "<group>"; };
-		A09BE18229C85E3B00B38572 /* FestivalDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FestivalDay.swift; sourceTree = "<group>"; };
-		A09BE18429C876E600B38572 /* Volunteer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Volunteer.swift; sourceTree = "<group>"; };
+		A09BE17E29C853C000B38572 /* FestivalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FestivalModel.swift; sourceTree = "<group>"; };
+		A09BE18029C85B1500B38572 /* TimeslotModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeslotModel.swift; sourceTree = "<group>"; };
+		A09BE18229C85E3B00B38572 /* FestivalDayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FestivalDayModel.swift; sourceTree = "<group>"; };
+		A09BE18429C876E600B38572 /* VolunteerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolunteerModel.swift; sourceTree = "<group>"; };
 		A0B9472D29C06BE30039813B /* CustomLists.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLists.swift; sourceTree = "<group>"; };
+		A0E8820C29C9926B00F14CE4 /* ZoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoneView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,12 +116,12 @@
 		A0538B7629C847C6007F0F2C /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				A0538B7729C847F3007F0F2C /* Zone.swift */,
-				A09BE17E29C853C000B38572 /* Festival.swift */,
-				A09BE18029C85B1500B38572 /* Timeslot.swift */,
-				A09BE18229C85E3B00B38572 /* FestivalDay.swift */,
-				A09BE18429C876E600B38572 /* Volunteer.swift */,
-				A06D195C29C8B7E500D081CC /* Assignments.swift */,
+				A0538B7729C847F3007F0F2C /* ZoneModel.swift */,
+				A09BE17E29C853C000B38572 /* FestivalModel.swift */,
+				A09BE18029C85B1500B38572 /* TimeslotModel.swift */,
+				A09BE18229C85E3B00B38572 /* FestivalDayModel.swift */,
+				A09BE18429C876E600B38572 /* VolunteerModel.swift */,
+				A06D195C29C8B7E500D081CC /* AssignmentsModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -127,7 +129,7 @@
 		A06D195E29C8BF6100D081CC /* Intent */ = {
 			isa = PBXGroup;
 			children = (
-				A06D195F29C8BF7400D081CC /* Zone.swift */,
+				A06D195F29C8BF7400D081CC /* ZoneIntent.swift */,
 			);
 			path = Intent;
 			sourceTree = "<group>";
@@ -135,7 +137,7 @@
 		A06D196129C8CAC600D081CC /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				A06D196229C8CADD00D081CC /* Zone.swift */,
+				A06D196229C8CADD00D081CC /* ZoneViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -143,7 +145,7 @@
 		A06D196429C8D19700D081CC /* Delegate */ = {
 			isa = PBXGroup;
 			children = (
-				A06D196529C8D1BD00D081CC /* ZoneViewModel.swift */,
+				A06D196529C8D1BD00D081CC /* ZoneViewModelDelegate.swift */,
 			);
 			path = Delegate;
 			sourceTree = "<group>";
@@ -151,7 +153,7 @@
 		A06D196729C8D24A00D081CC /* DAO */ = {
 			isa = PBXGroup;
 			children = (
-				A06D196829C8D25600D081CC /* Zone.swift */,
+				A06D196829C8D25600D081CC /* ZoneDAO.swift */,
 			);
 			path = DAO;
 			sourceTree = "<group>";
@@ -179,6 +181,7 @@
 		A081EDF529B201BD004E2960 /* awi */ = {
 			isa = PBXGroup;
 			children = (
+				A0E8820B29C9925A00F14CE4 /* View */,
 				A06D196729C8D24A00D081CC /* DAO */,
 				A06D196429C8D19700D081CC /* Delegate */,
 				A06D196129C8CAC600D081CC /* ViewModel */,
@@ -218,6 +221,14 @@
 				A081EE1329B201BE004E2960 /* awiUITestsLaunchTests.swift */,
 			);
 			path = awiUITests;
+			sourceTree = "<group>";
+		};
+		A0E8820B29C9925A00F14CE4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A0E8820C29C9926B00F14CE4 /* ZoneView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -351,22 +362,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				A0B9472E29C06BE30039813B /* CustomLists.swift in Sources */,
-				A06D196929C8D25600D081CC /* Zone.swift in Sources */,
+				A06D196929C8D25600D081CC /* ZoneDAO.swift in Sources */,
 				A081EDF929B201BD004E2960 /* ContentView.swift in Sources */,
-				A09BE18529C876E600B38572 /* Volunteer.swift in Sources */,
-				A09BE18329C85E3B00B38572 /* FestivalDay.swift in Sources */,
-				A06D195D29C8B7E500D081CC /* Assignments.swift in Sources */,
-				A0538B7829C847F3007F0F2C /* Zone.swift in Sources */,
-				A09BE18129C85B1500B38572 /* Timeslot.swift in Sources */,
+				A09BE18529C876E600B38572 /* VolunteerModel.swift in Sources */,
+				A09BE18329C85E3B00B38572 /* FestivalDayModel.swift in Sources */,
+				A0E8820D29C9926B00F14CE4 /* ZoneView.swift in Sources */,
+				A06D195D29C8B7E500D081CC /* AssignmentsModel.swift in Sources */,
+				A0538B7829C847F3007F0F2C /* ZoneModel.swift in Sources */,
+				A09BE18129C85B1500B38572 /* TimeslotModel.swift in Sources */,
 				A081EDF729B201BD004E2960 /* awiApp.swift in Sources */,
 				6A457466D255F720CC7B4E1C /* ZonesView.swift in Sources */,
-				A06D196329C8CADD00D081CC /* Zone.swift in Sources */,
+				A06D196329C8CADD00D081CC /* ZoneViewModel.swift in Sources */,
 				6A457C7E79C59186664BFE67 /* ProfileView.swift in Sources */,
-				A06D196629C8D1BD00D081CC /* ZoneViewModel.swift in Sources */,
+				A06D196629C8D1BD00D081CC /* ZoneViewModelDelegate.swift in Sources */,
 				6A4573B6BCF74CF86B9F65F0 /* HomeView.swift in Sources */,
-				A09BE17F29C853C000B38572 /* Festival.swift in Sources */,
+				A09BE17F29C853C000B38572 /* FestivalModel.swift in Sources */,
 				A06D196B29C8D4C000D081CC /* API.swift in Sources */,
-				A06D196029C8BF7400D081CC /* Zone.swift in Sources */,
+				A06D196029C8BF7400D081CC /* ZoneIntent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
