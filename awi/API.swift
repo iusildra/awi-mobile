@@ -1,4 +1,4 @@
-let API_ROOT = "https://awi-mano-api.cluster-ig4.igpolytech.fr/"
+let API_ROOT = "https://awi-mano-api.cluster-ig4.igpolytech.fr"
 
 let API_ZONE = "\(API_ROOT)/zone"
 func API_ZONE_UNIQUE(id: Int) -> String { "\(API_ZONE)/\(id)" }

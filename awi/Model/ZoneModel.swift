@@ -34,10 +34,10 @@ class Zone: ObservableObject {
         }
     }
     
-    init(id: Int, name: String, festivalid: String, nbVolunteers: Int) {
+    init(id: Int, name: String, festivalId: String, nbVolunteers: Int) {
         self.id = id
         self.name = name
-        self.festivalId = festivalid
+        self.festivalId = festivalId
         self.nbVolunteers = nbVolunteers
     }
     

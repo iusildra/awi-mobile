@@ -31,6 +31,10 @@
 		A09BE18529C876E600B38572 /* VolunteerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09BE18429C876E600B38572 /* VolunteerModel.swift */; };
 		A0B9472E29C06BE30039813B /* CustomLists.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B9472D29C06BE30039813B /* CustomLists.swift */; };
 		A0E8820D29C9926B00F14CE4 /* ZoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E8820C29C9926B00F14CE4 /* ZoneView.swift */; };
+		A0E8820F29C99F9000F14CE4 /* ZoneListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E8820E29C99F9000F14CE4 /* ZoneListView.swift */; };
+		A0E8821129C9A01600F14CE4 /* ZoneListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E8821029C9A01600F14CE4 /* ZoneListViewModel.swift */; };
+		A0E8821329C9A0D400F14CE4 /* ZoneListViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E8821229C9A0D400F14CE4 /* ZoneListViewModelDelegate.swift */; };
+		A0E8821529C9A3A400F14CE4 /* ZoneListIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E8821429C9A3A400F14CE4 /* ZoneListIntent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +82,10 @@
 		A09BE18429C876E600B38572 /* VolunteerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolunteerModel.swift; sourceTree = "<group>"; };
 		A0B9472D29C06BE30039813B /* CustomLists.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLists.swift; sourceTree = "<group>"; };
 		A0E8820C29C9926B00F14CE4 /* ZoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoneView.swift; sourceTree = "<group>"; };
+		A0E8820E29C99F9000F14CE4 /* ZoneListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoneListView.swift; sourceTree = "<group>"; };
+		A0E8821029C9A01600F14CE4 /* ZoneListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoneListViewModel.swift; sourceTree = "<group>"; };
+		A0E8821229C9A0D400F14CE4 /* ZoneListViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoneListViewModelDelegate.swift; sourceTree = "<group>"; };
+		A0E8821429C9A3A400F14CE4 /* ZoneListIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoneListIntent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				A06D195F29C8BF7400D081CC /* ZoneIntent.swift */,
+				A0E8821429C9A3A400F14CE4 /* ZoneListIntent.swift */,
 			);
 			path = Intent;
 			sourceTree = "<group>";
@@ -131,6 +140,7 @@
 			isa = PBXGroup;
 			children = (
 				A06D196229C8CADD00D081CC /* ZoneViewModel.swift */,
+				A0E8821029C9A01600F14CE4 /* ZoneListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -139,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				A06D196529C8D1BD00D081CC /* ZoneViewModelDelegate.swift */,
+				A0E8821229C9A0D400F14CE4 /* ZoneListViewModelDelegate.swift */,
 			);
 			path = Delegate;
 			sourceTree = "<group>";
@@ -222,6 +233,7 @@
 				6A4570C3E26E067731071145 /* HomeView.swift */,
 				6A4578A052FC51C722D73CC7 /* AuthView.swift */,
 				6A457625F469DE44A17CB352 /* ProfileView.swift */,
+				A0E8820E29C99F9000F14CE4 /* ZoneListView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -357,11 +369,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				A0B9472E29C06BE30039813B /* CustomLists.swift in Sources */,
+				A0E8820F29C99F9000F14CE4 /* ZoneListView.swift in Sources */,
 				A06D196929C8D25600D081CC /* ZoneDAO.swift in Sources */,
+				A0E8821129C9A01600F14CE4 /* ZoneListViewModel.swift in Sources */,
 				A081EDF929B201BD004E2960 /* ContentView.swift in Sources */,
 				A09BE18529C876E600B38572 /* VolunteerModel.swift in Sources */,
 				A09BE18329C85E3B00B38572 /* FestivalDayModel.swift in Sources */,
+				A0E8821329C9A0D400F14CE4 /* ZoneListViewModelDelegate.swift in Sources */,
 				A0E8820D29C9926B00F14CE4 /* ZoneView.swift in Sources */,
+				A0E8821529C9A3A400F14CE4 /* ZoneListIntent.swift in Sources */,
 				A06D195D29C8B7E500D081CC /* AssignmentsModel.swift in Sources */,
 				A0538B7829C847F3007F0F2C /* ZoneModel.swift in Sources */,
 				A09BE18129C85B1500B38572 /* TimeslotModel.swift in Sources */,
