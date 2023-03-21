@@ -1,20 +1,47 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var isConnected: Bool = false
+    @State var volunteer: Volunteer = Volunteer(id: "test-test", username: "bloup", firstName: "blip", lastName: "bloup", email: "bloup@gmail.com",isAdmin: true )
+    @State var token : String = ""
+    @State var selectedTab = 0
+
+
     var body: some View {
         VStack {
-            FooterView()
+            if isConnected {
+                TabView(selection: $selectedTab) {
+                    HomeView()
+                            .tabItem {
+                                Image(systemName: "house")
+                                Text("Home")
+                            }.tag(0)
+//                    TODO : Replace Placeholder
+                    HomeView()
+                            .tabItem {
+                                Image(systemName: "map")
+                                Text("Zones")
+                            }.tag(1)
+                    ProfileView(volunteer : $volunteer, token: $token)
+                            .tabItem {
+                                Image(systemName: "person")
+                                Text("Profile")
+                            }.tag(1)
+                }
+            }else{
+                Auth(isConnected : $isConnected, volunteer: $volunteer, token: $token)
+            }
         }
     }
 }
 
 struct HeaderView: View {
     let title: String
-    
+
     init(title: String) {
         self.title = title
     }
-    
+
     var body: some View {
         HStack {
             Spacer().frame(width: 20)
@@ -41,35 +68,12 @@ struct HeaderView: View {
     }
 }
 
-struct FooterView: View {
-    @State var selectedTab = 0
-    var body: some View {
-            TabView(selection: $selectedTab) {
-                HomeView()
-                    .tabItem {
-                        Image(systemName: "house")
-                        Text("Home")
-                    }.tag(0)
-                ZonesView()
-                    .tabItem {
-                        Image(systemName: "map")
-                        Text("Zones")
-                    }.tag(1)
-                ProfileView()
-                    .tabItem {
-                        Image(systemName: "person")
-                        Text("Profile")
-                    }.tag(1)
-            }
-    }
-}
-
 func createCustomCard<Content: View>(content: Content) -> some View {
     content
-        .padding()
-        .background(Color.white)
-        .cornerRadius(10)
-        .shadow(radius: 5)
+            .padding()
+            .background(Color.white)
+            .cornerRadius(10)
+            .shadow(radius: 5)
 }
 
 struct ContentView_Previews: PreviewProvider {
