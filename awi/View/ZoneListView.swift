@@ -57,8 +57,8 @@ struct ZoneListView: View {
                 }
                 VStack {
                     HStack{
-                        /*NavigationLink(destination: CreateSheetView()){
-                            Text("Create a zone")
+                        NavigationLink(destination: EditZoneView()){
+                            Text("Edit a zone")
                                 .fontWeight(.bold)
                                 .foregroundColor(.cyan)
                                 .padding()
@@ -67,7 +67,7 @@ struct ZoneListView: View {
                                         .stroke(Color.cyan, lineWidth: 5)
                                 )
                             EmptyView()
-                        }*/
+                        }
                     }
                     
                     Button(action: {

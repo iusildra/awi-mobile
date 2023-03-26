@@ -11,6 +11,7 @@
 		6A4576112708B3D576F8E1A4 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4578A052FC51C722D73CC7 /* AuthView.swift */; };
 		6A4576E041396ADE25B02061 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4570C3E26E067731071145 /* HomeView.swift */; };
 		6A457E22A0EA2B09A8E9DD2D /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A457625F469DE44A17CB352 /* ProfileView.swift */; };
+		A025F9AE29D09A1000B13948 /* EditZoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A025F9AD29D09A1000B13948 /* EditZoneView.swift */; };
 		A0538B7829C847F3007F0F2C /* ZoneModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0538B7729C847F3007F0F2C /* ZoneModel.swift */; };
 		A06D195D29C8B7E500D081CC /* AssignmentsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06D195C29C8B7E500D081CC /* AssignmentsModel.swift */; };
 		A06D196029C8BF7400D081CC /* ZoneIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06D195F29C8BF7400D081CC /* ZoneIntent.swift */; };
@@ -59,6 +60,7 @@
 		6A4575D5F127043690C2A28F /* AuthModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthModel.swift; sourceTree = "<group>"; };
 		6A457625F469DE44A17CB352 /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		6A4578A052FC51C722D73CC7 /* AuthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
+		A025F9AD29D09A1000B13948 /* EditZoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditZoneView.swift; sourceTree = "<group>"; };
 		A0538B7729C847F3007F0F2C /* ZoneModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoneModel.swift; sourceTree = "<group>"; };
 		A06D195C29C8B7E500D081CC /* AssignmentsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentsModel.swift; sourceTree = "<group>"; };
 		A06D195F29C8BF7400D081CC /* ZoneIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoneIntent.swift; sourceTree = "<group>"; };
@@ -234,6 +236,7 @@
 				6A4578A052FC51C722D73CC7 /* AuthView.swift */,
 				6A457625F469DE44A17CB352 /* ProfileView.swift */,
 				A0E8820E29C99F9000F14CE4 /* ZoneListView.swift */,
+				A025F9AD29D09A1000B13948 /* EditZoneView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -370,6 +373,7 @@
 			files = (
 				A0B9472E29C06BE30039813B /* CustomLists.swift in Sources */,
 				A0E8820F29C99F9000F14CE4 /* ZoneListView.swift in Sources */,
+				A025F9AE29D09A1000B13948 /* EditZoneView.swift in Sources */,
 				A06D196929C8D25600D081CC /* ZoneDAO.swift in Sources */,
 				A0E8821129C9A01600F14CE4 /* ZoneListViewModel.swift in Sources */,
 				A081EDF929B201BD004E2960 /* ContentView.swift in Sources */,
