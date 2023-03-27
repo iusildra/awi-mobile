@@ -6,6 +6,8 @@ struct FestivalDTO: Decodable, Hashable, Identifiable {
     let year: Int
     let active: Bool
     let duration: Int
+    let zones: [ZoneDTO]
+    let festival_days: [FestivalDayDTO]
 }
 
 protocol FestivalObserver {
@@ -13,6 +15,8 @@ protocol FestivalObserver {
     func changedDuration(duration: Int, id: String)
     func changedName(name: String, id: String)
     func changedYear(year: Int, id: String)
+    func changedZones(zones: [Zone], id: String)
+    func changedDays(days: [FestivalDay], id: String)
 }
 
 enum FestivalPropertyChange {
@@ -20,6 +24,8 @@ enum FestivalPropertyChange {
     case YEAR
     case ACTIVE
     case DURATION
+    case DAY
+    case ZONE
 }
 
 class Festival: ObservableObject {
@@ -50,13 +56,27 @@ class Festival: ObservableObject {
             notifyObservers(change: .YEAR)
         }
     }
+    var zones: [Zone] {
+        didSet {
+            if zones.count == 0 { zones = oldValue }
+            else { notifyObservers(change: .ZONE) }
+        }
+    }
+    var days: [FestivalDay] {
+        didSet {
+            if days.count == 0 { days = oldValue }
+            else { notifyObservers(change: .DAY) }
+        }
+    }
     
-    private init(id: String, name: String, year: Int, active: Bool, duration: Int) {
+    init(id: String, name: String, year: Int, active: Bool, duration: Int, zones: [Zone], days: [FestivalDay]) {
         self.id = id
         self.name = name
         self.year = year
         self.active = active
         self.duration = duration
+        self.zones = zones
+        self.days = days
     }
     
     func addObserver(o: FestivalObserver) {
@@ -74,7 +94,12 @@ class Festival: ObservableObject {
                 observer.changedName(name: self.name, id: self.id)
             case .YEAR:
                 observer.changedYear(year: self.year, id: self.id)
+            case .ZONE:
+                observer.changedZones(zones: self.zones, id: self.id)
+            case .DAY:
+                observer.changedDays(days: self.days, id: self.id)
             }
+
         }
     }
 }

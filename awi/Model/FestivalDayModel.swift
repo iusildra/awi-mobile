@@ -1,8 +1,8 @@
 import Foundation
 
-struct FestivalDayDTO {
+struct FestivalDayDTO: Decodable, Hashable, Identifiable {
     let id: Int
-    let festival_id: Int
+    let festival_id: String
     let date: Date
     let open_at: Date
     let close_at: Date
@@ -20,7 +20,11 @@ enum FestivalDayPropertyChange {
     case CLOSING
 }
 
-class FestivalDay: ObservableObject {
+class FestivalDay: ObservableObject, Equatable {
+    static func == (lhs: FestivalDay, rhs: FestivalDay) -> Bool {
+        lhs.id == rhs.id && lhs.date == rhs.date && lhs.openAt == rhs.openAt && lhs.closeAt == rhs.closeAt
+    }
+    
     private var observers: [FestivalDayObserver] = []
     let id: Int
     var date: Date {

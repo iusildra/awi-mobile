@@ -26,17 +26,17 @@ class ZoneDAO {
     static func fetchZone(list : ZoneListViewModel){
         list.datavm = []
         list.data = []
-        ZoneListViewIntent(list : list).load(url: API_ZONE)
+        list.fetching = true
+        
         let surl = API_ZONE
         guard let url = URL(string: surl) else { print(CREATE_URL_ERROR); return }
 
         let request = URLRequest(url: url)
-        print(surl)
         URLSession.shared.dataTask(with: request) { data,response,error in
             guard let data = data else{return}
             do{
                 let dataDTO : [ZoneDTO] = try JSONDecoder().decode([ZoneDTO].self, from: data)
-                ZoneListViewIntent(list : list ).httpJsonLoaded(result: dataDTO)
+                
                 for zone in dataDTO{
                     let zone = Zone(id: zone.id, name: zone.name, festivalId: zone.festival_id, nbVolunteers: zone.nb_volunteers)
                     list.data.append(zone)
@@ -45,16 +45,19 @@ class ZoneDAO {
                     list.datavm.append(vm)
                 }
                 DispatchQueue.main.async {
-                    ZoneListViewIntent(list : list).zonesLoaded()
-                    print("reload")
+                    ZoneListViewIntent(list : list ).zonesLoaded()
+                    list.fetching = false
                 }
+                
             }catch{
                 DispatchQueue.main.async {
+                    list.fetching = false
                     list.zoneListState = .loadingError("\(error)")
                     print("error")
                 }
                 print("Error: \(error)")
             }
+
         }.resume()
     }
     static func deleteZone(zoneId: Int, vm: ZoneViewModel) {

@@ -1,12 +1,19 @@
 import SwiftUI
 
 struct ZoneListView: View {
+    private let editable: Bool
     @State private var searchString = ""
     @ObservedObject var viewModel: ZoneListViewModel
-    @StateObject var zoneViewModel: ZoneListViewModel = ZoneListViewModel()
+    @StateObject var zoneListViewModel: ZoneListViewModel = ZoneListViewModel()
     
     init(viewModel: ZoneListViewModel){
         self.viewModel = viewModel
+        self.editable = true
+    }
+    
+    init(viewModel: ZoneListViewModel, editable: Bool){
+        self.viewModel = viewModel
+        self.editable = editable
     }
     
     private var zoneListState : ZoneListState {
@@ -14,7 +21,7 @@ struct ZoneListView: View {
     }
     
     func deleteItems(at offsets: IndexSet) {
-        zoneViewModel.datavm.remove(atOffsets: offsets)
+        zoneListViewModel.datavm.remove(atOffsets: offsets)
     }
     
     var body: some View {
@@ -22,7 +29,7 @@ struct ZoneListView: View {
             VStack{
                 switch zoneListState {
                 case .loading, .loaded:
-                    Text("Chargement des zones...")
+                    Text("Zones loading...")
                     ProgressView()
                         .progressViewStyle(CircularProgressViewStyle(tint: .black))
                         .scaleEffect(2)
@@ -30,19 +37,19 @@ struct ZoneListView: View {
                     Text("Error while loading zones")
                 case .ready:
                     List {
-                        ForEach(searchString == "" ? zoneViewModel.datavm : zoneViewModel.datavm.filter { $0.zone.name.contains(searchString) }, id: \.zone.id) {
+                        ForEach(searchString == "" ? zoneListViewModel.datavm : zoneListViewModel.datavm.filter { $0.zone.name.contains(searchString) }, id: \.zone.id) {
                             vm in
                             NavigationLink(destination: ZoneView(vm: vm)){
                                 Text(vm.name)
                                     .fontWeight(.bold)
                                     .foregroundColor(.blue)
                             }
-                        }.navigationTitle("Fiches Complètes 🍱")
+                        }.navigationTitle("Zones")
                         
                     }
                     .overlay {
-                        if zoneViewModel.fetching {
-                            Text("Chargement des fiches techniques")
+                        if zoneListViewModel.fetching {
+                            Text("Zones loading...")
                                 .foregroundColor(.blue)
                             
                             ProgressView()
@@ -52,36 +59,38 @@ struct ZoneListView: View {
                     }
                     .searchable(text: $searchString)
                     .onAppear{
-                        zoneViewModel.fetchData()
+                        ZoneDAO.fetchZone(list: self.viewModel)
                     }
                 }
-                VStack {
-                    HStack{
-                        NavigationLink(destination: EditZoneView()){
-                            Text("Edit a zone")
+                if editable {
+                    VStack {
+                        HStack{
+                            NavigationLink(destination: EditZoneView(zoneListVM: self.zoneListViewModel)){
+                                Text("Edit a zone")
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.cyan)
+                                    .padding()
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 20)
+                                            .stroke(Color.cyan, lineWidth: 5)
+                                    )
+                                EmptyView()
+                            }
+                        }
+                        
+                        Button(action: {
+                            ZoneDAO.fetchZone(list: zoneListViewModel)
+                        }){
+                            Text("Refresh")
                                 .fontWeight(.bold)
-                                .foregroundColor(.cyan)
+                                .foregroundColor(.blue)
                                 .padding()
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 20)
-                                        .stroke(Color.cyan, lineWidth: 5)
+                                        .stroke(Color.blue, lineWidth: 5)
                                 )
-                            EmptyView()
-                        }
+                        }.padding()
                     }
-                    
-                    Button(action: {
-                        ZoneDAO.fetchZone(list: zoneViewModel)
-                    }){
-                        Text("Refresh")
-                            .fontWeight(.bold)
-                            .foregroundColor(.blue)
-                            .padding()
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 20)
-                                    .stroke(Color.blue, lineWidth: 5)
-                            )
-                    }.padding()
                 }
             }
         }

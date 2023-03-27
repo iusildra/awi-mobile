@@ -5,8 +5,10 @@ struct EditZoneView: View {
     @State var festivalName: String = ""
     @State var festivalId: String = ""
     @State var volunteerRequired: Int = -1
+    @State var zoneName: String = ""
+    @State var zone: Zone?
     @ObservedObject var viewModelCreation: ZoneViewModel = ZoneViewModel(zone: Zone(id: -1, name: "", festivalId: "", nbVolunteers: -1))
-    @ObservedObject var zoneListVM: ZoneListViewModel = ZoneListViewModel()
+    @ObservedObject var zoneListVM: ZoneListViewModel
     
     private var creationState : CreateZoneIntentState {
         return viewModelCreation.creationState
@@ -16,16 +18,27 @@ struct EditZoneView: View {
         return zoneListVM.datavm.map{$0.name}
     }
     
+    init(zoneListVM: ZoneListViewModel) {
+        self.zoneListVM = zoneListVM
+    }
+    
     var body: some View {
         NavigationView{
             VStack{
                 switch creationState {
-                case .ready:
+                case .READY:
                     Text("Create or edit a zone. You can edit it later")
                         .fontWeight(.bold)
                         .foregroundColor(.black)
                         .padding()
                     Divider()
+                    HStack {
+                        Picker("Zone", selection: $zoneName) {
+                            ForEach(self.zoneListVM.data.map{$0.name}, id: \.self) {
+                                text in Text(text)
+                            }
+                        }
+                    }
                     Form{
                         Section(header: Text("Zone edition")
                                     .font(.system(size: 20))
@@ -47,7 +60,7 @@ struct EditZoneView: View {
                                 TextField("count", value: $volunteerRequired, formatter: NumberFormatter())
                             }
                             
-                            if (name != "") && volunteerRequired > 0 && UUID(from: festivalId) {
+                            if (name != "") && volunteerRequired > 0 && festivalName.count > 0 {
                                 Section {
                                     Divider()
                                     Button(action: {ZoneDAO.createZone(name: name, festivalId: festivalId, nbRequiredVolunteers: volunteerRequired, vm: viewModelCreation)}){
@@ -59,13 +72,13 @@ struct EditZoneView: View {
                             }
                         }
                     }
-                case .creating:
+                case .CREATING:
                     Text("Editing...")
                         .foregroundColor(.black)
                     ProgressView()
                         .progressViewStyle(CircularProgressViewStyle(tint: .black))
                         .scaleEffect(2)
-                case .created:
+                case .CREATED:
                     Text("Zone \(name) successfully edited" )
                         .fontWeight(.bold)
                         .foregroundColor(.green)
@@ -83,7 +96,7 @@ struct EditZoneView: View {
                         Text("You will be redirected to the edit page")
                             .italic()
                     }
-                case .creatingError(let string):
+                case .ERROR:
                     Text("Error when editing, please try again later")
                         .fontWeight(.bold)
                         .italic()
@@ -106,8 +119,8 @@ struct EditZoneView: View {
     }
 }
 
-struct CreateSheetView_Previews: PreviewProvider {
+struct EditZoneView_Previews: PreviewProvider {
     static var previews: some View {
-        EditZoneView()
+        EditZoneView(zoneListVM: ZoneListViewModel())
     }
 }

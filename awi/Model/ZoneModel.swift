@@ -17,7 +17,11 @@ enum ZonePropertyChange {
     case NB_VOLUNTEERS
 }
 
-class Zone: ObservableObject {
+class Zone: ObservableObject, Equatable {
+    static func == (lhs: Zone, rhs: Zone) -> Bool {
+        lhs.id == rhs.id && lhs.name == rhs.name && lhs.festivalId == rhs.festivalId && lhs.nbVolunteers == rhs.nbVolunteers
+    }
+    
     private var observers: [ZoneObserver] = []
     let id: Int
     var name: String {

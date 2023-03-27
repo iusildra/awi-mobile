@@ -1,5 +1,5 @@
 import Foundation
 
-protocol zoneViewModelDelegate{
-    func zoneViewModelChanged()
+protocol ZoneListViewModelDelegate{
+    func zoneListViewModelChanged()
 }

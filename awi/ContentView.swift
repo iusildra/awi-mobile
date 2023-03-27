@@ -16,17 +16,21 @@ struct ContentView: View {
                                 Image(systemName: "house")
                                 Text("Home")
                             }.tag(0)
-//                    TODO : Replace Placeholder
-                    HomeView()
+                    FestivalListView(viewModel: FestivalListViewModel())
+                        .tabItem {
+                            Image(systemName: "map")
+                            Text("Festivals")
+                        }.tag(1)
+                    ZoneListView(viewModel: ZoneListViewModel())
                             .tabItem {
                                 Image(systemName: "map")
                                 Text("Zones")
-                            }.tag(1)
+                            }.tag(2)
                     ProfileView(volunteer : $volunteer, token: $token)
                             .tabItem {
                                 Image(systemName: "person")
                                 Text("Profile")
-                            }.tag(1)
+                            }.tag(3)
                 }
             }else{
                 Auth(isConnected : $isConnected, volunteer: $volunteer, token: $token)
