@@ -10,19 +10,17 @@ struct Auth: View {
     @Binding var volunteer: Volunteer
     @Binding var token: String
 
+    @State var auth : SignUpDTO = SignUpDTO(username: "", firstName: "", lastName: "", email: "", password: "")
+
     @State var SignUp: Bool = false
-    @State var username: String = ""
-    @State var firstName: String = ""
-    @State var lastName: String = ""
-    @State var email: String = ""
-    @State var password: String = ""
     @State var passwordConfirmation: String = ""
     var SignInIsDisabled: Bool {
-        email.isEmpty || password.isEmpty
+        auth.email.isEmpty || auth.password.isEmpty
     }
     var SignUpIsDisabled: Bool {
-        username.isEmpty || firstName.isEmpty || lastName.isEmpty || email.isEmpty || password.isEmpty || passwordConfirmation.isEmpty
+        auth.username.isEmpty || auth.firstName.isEmpty || auth.lastName.isEmpty || auth.email.isEmpty || auth.password.isEmpty || passwordConfirmation.isEmpty
     }
+    @State var errorSign: Bool = false
     @State var isSignedIn: Bool = false
     var result : String = ""
 
@@ -35,32 +33,37 @@ struct Auth: View {
                     .padding()
             Spacer().frame(height: 20)
             if SignUp {
-                TextField("Username", text: $username)
+                TextField("Username", text: $auth.username)
                         .padding()
                         .background(Color(.systemGray6))
                         .cornerRadius(10.0)
                         .padding(.bottom, 20)
-                TextField("Firstname", text: $firstName)
+                TextField("Firstname", text: $auth.firstName)
                         .padding()
                         .background(Color(.systemGray6))
                         .cornerRadius(10.0)
                         .padding(.bottom, 20)
-                TextField("Lastname", text: $lastName)
+                TextField("Lastname", text: $auth.lastName)
                         .padding()
                         .background(Color(.systemGray6))
                         .cornerRadius(10.0)
                         .padding(.bottom, 20)
             }
-            TextField("Email", text: $email)
+            TextField("Email", text: $auth.email)
                     .padding()
                     .background(Color(.systemGray6))
                     .cornerRadius(10.0)
                     .padding(.bottom, 20)
-            SecureField("Password", text: $password)
+            SecureField("Password", text: $auth.password)
                     .padding()
                     .background(Color(.systemGray6))
                     .cornerRadius(10.0)
                     .padding(.bottom, 20)
+            Text("We couldn't find an account for this email/password combination. Please try again.")
+                    .foregroundColor(Color(red: 0.9, green: 0.5, blue: 0.0))
+                    .fontWeight(.bold)
+                    .opacity(errorSign ? 1 : 0)
+                    .frame(height: errorSign ? 60 : 0)
             if SignUp {
                 SecureField("Password confirmation", text: $passwordConfirmation)
                         .padding()
@@ -91,8 +94,8 @@ struct Auth: View {
             }
 
             Spacer()
-
             Button(action: {
+                self.errorSign = false
                 self.SignUp.toggle()
             }) {
                 Text(SignUp ? "Already have an account ? Sign in" : "Don't have an account ? Sign up")
@@ -108,18 +111,6 @@ struct Auth: View {
 
     }
 
-    struct SignUpPayload: Codable {
-        let username: String
-        let email: String
-        let password: String
-        let firstName: String
-        let lastName: String
-    }
-
-    struct SignInPayload: Codable {
-        let email: String
-        let password: String
-    }
 
     struct SignInResponse: Codable {
         let username: String
@@ -137,7 +128,7 @@ struct Auth: View {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        let parameters = try! JSONEncoder().encode(SignInPayload(email: email.lowercased(), password: password))
+        let parameters = try! JSONEncoder().encode(SignInDTO(email: auth.email.lowercased(), password: auth.password))
         print(String(data: parameters, encoding: .utf8)!)
 
         request.httpBody = parameters
@@ -150,18 +141,19 @@ struct Auth: View {
 //                            print(String(data: data, encoding: .utf8)!)
                             let decodedResponse = try JSONDecoder().decode(SignInResponse.self, from: data)
                             print(decodedResponse)
-//                            TODO : fix isAdmin
-                            volunteer = Volunteer(id: decodedResponse.sub, username: decodedResponse.username,firstName: decodedResponse.firstName,lastName: decodedResponse.lastName,email: decodedResponse.email, isAdmin: true)
+                            volunteer = Volunteer(id: decodedResponse.sub, username: decodedResponse.username,firstName: decodedResponse.firstName,lastName: decodedResponse.lastName,email: decodedResponse.email, isAdmin: decodedResponse.isAdmin)
                             token = decodedResponse.access_token
+                            self.isConnected = true
                             print("Data fetching completed!")
                         } catch {
                             print("Fetch failed 1: \(error.localizedDescription)")
+                            errorSign = true
                         }
                     } else if let error = error {
                         print("Fetch failed 2: \(error.localizedDescription)")
                     }
                 }.resume()
-        self.isConnected = true
+
 
     }
 }

@@ -1,0 +1,21 @@
+{
+  "images" : [
+    {
+      "filename" : "festigames-low-resolution-logo-color-on-transparent-background.svg",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

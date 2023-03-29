@@ -4,17 +4,17 @@
 
 import Foundation
 
-struct SignInDTO {
-    let email: String
-    let password: String
+struct SignInDTO : Codable {
+    var email: String
+    var password: String
 }
 
-struct SignUpDTO {
-    let username: String
-    let firstName: String
-    let lastName: String
-    let email: String
-    let password: String
+struct SignUpDTO : Codable {
+    var username: String
+    var firstName: String
+    var lastName: String
+    var email: String
+    var password: String
 }
 
 protocol SignInObserver {

@@ -18,7 +18,7 @@ struct ContentView: View {
                             }.tag(0)
                     FestivalListView(viewModel: FestivalListViewModel())
                         .tabItem {
-                            Image(systemName: "map")
+                            Image(systemName: "party.popper.fill")
                             Text("Festivals")
                         }.tag(1)
                     ZoneListView(viewModel: ZoneListViewModel())

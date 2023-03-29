@@ -9,34 +9,84 @@ struct ProfileView: View {
     @Binding var volunteer: Volunteer
     @Binding var token: String
 
+    @State var Edit : Bool = true
+
     var body: some View {
-        VStack {
+        VStack(alignment: .leading, spacing: 20 ) {
+            HStack {
+                Spacer()
+                Button(action: {
+                    Edit.toggle()
+                }, label: {
+                    Text(Edit ? "Edit" : "Save")
+
+                })
+            }
             Text("Profile")
                     .font(.title)
                     .fontWeight(.bold)
-                    .padding(.bottom, 20)
-            Text("Username: \(volunteer.username)")
-                    .font(.title2)
-                    .fontWeight(.bold)
-                    .padding(.bottom, 20)
-            Text("Firstname: \(volunteer.firstName)")
-                    .font(.title2)
-                    .fontWeight(.bold)
-                    .padding(.bottom, 20)
-            Text("Lastname: \(volunteer.lastName)")
-                    .font(.title2)
-                    .fontWeight(.bold)
-                    .padding(.bottom, 20)
-            Text("Email: \(volunteer.email)")
-                    .font(.title2)
-                    .fontWeight(.bold)
-                    .padding(.bottom, 20)
-            Text("Token: \(token)")
-                    .font(.title2)
-                    .fontWeight(.bold)
-                    .padding(.bottom, 20)
+                    .padding(20)
+
+            VStack {
+                Text("Username")
+                        .font(.caption)
+                        .padding(.leading, 10)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                TextField("Username", text: $volunteer.username)
+                        .disabled(Edit)
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .padding(10)
+                        .background(Color(.systemGray6))
+                        .cornerRadius(8)
+            }
+
+            VStack {
+                Text("Firstname")
+                        .font(.caption)
+                        .padding(.leading, 10)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                TextField("Firstname", text: $volunteer.firstName)
+                        .disabled(Edit)
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .padding(10)
+                        .background(Color(.systemGray6))
+                        .cornerRadius(8)
+            }
+
+            VStack {
+                Text("Lastname")
+                        .font(.caption)
+                        .padding(.leading, 10)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                TextField("Lastname", text: $volunteer.lastName)
+                        .disabled(Edit)
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .padding(10)
+                        .background(Color(.systemGray6))
+                        .cornerRadius(8)
+            }
+
+            VStack {
+                Text("Email")
+                        .font(.caption)
+                        .padding(.leading, 10)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                TextField("Email", text: $volunteer.email)
+                        .disabled(Edit)
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .padding(10)
+                        .background(Color(.systemGray6))
+                        .cornerRadius(8)
+            }
 
             Spacer()
         }
+                .padding(20)
+                .background(.white)
+
     }
 }
