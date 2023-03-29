@@ -4,9 +4,11 @@ struct FestivalListView: View {
     @State private var searchString = ""
     @ObservedObject var viewModel: FestivalListViewModel
     @StateObject var festivalListViewModel: FestivalListViewModel = FestivalListViewModel()
+    @State var token : String;
     
-    init(viewModel: FestivalListViewModel){
+    init(viewModel: FestivalListViewModel,token: String){
         self.viewModel = viewModel
+        self.token = token
     }
     
     private var festivalListState : FestivalListState {
@@ -34,55 +36,52 @@ struct FestivalListView: View {
                             vm in
                             NavigationLink(destination: FestivalView(vm: vm)){
                                 Text(vm.name)
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.blue)
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.blue)
                             }
                         }.navigationTitle("Festivals")
-                        
+
                     }
                     .overlay {
                         if festivalListViewModel.fetching {
                             Text("Festivals loading...")
-                                .foregroundColor(.blue)
-                            
+                                    .foregroundColor(.blue)
+
                             ProgressView()
-                                .progressViewStyle(CircularProgressViewStyle(tint: .blue))
-                                .scaleEffect(2)
+                                    .progressViewStyle(CircularProgressViewStyle(tint: .blue))
+                                    .scaleEffect(2)
                         }
                     }
                     .searchable(text: $searchString)
                     .onAppear{
                         FestivalDAO.fetchFestival(list: festivalListViewModel)
                     }
-                }
-                VStack {
-                    HStack{
-                        /*NavigationLink(destination: EditFestivalView(festivalListVM: self.festivalListViewModel)){
-                            Text("Edit a festival")
-                                .fontWeight(.bold)
-                                .foregroundColor(.cyan)
-                                .padding()
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 20)
-                                        .stroke(Color.cyan, lineWidth: 5)
-                                )
-                            EmptyView()
-                        }*/
-                    }
-                    
-                    Button(action: {
-                        FestivalDAO.fetchFestival(list: festivalListViewModel)
-                    }){
-                        Text("Refresh")
-                            .fontWeight(.bold)
-                            .foregroundColor(.blue)
-                            .padding()
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 20)
-                                    .stroke(Color.blue, lineWidth: 5)
+                            .refreshable(
+                                action: {
+                                    FestivalDAO.fetchFestival(list: festivalListViewModel)
+                                }
                             )
-                    }.padding()
                 }
+
+                    HStack {
+                        Button(action: {
+
+                        }){
+                            Text("Delete")
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
+                                .padding()
+                                .background(Color.red)
+                                .cornerRadius(8)
+                        }.padding()
+
+                            NavigationLink("Add a festival", destination : CreateFestivalView(token: $token))
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.white)
+                                    .padding()
+                                    .background(Color.green)
+                                    .cornerRadius(8)
+                        }.padding()
             }
         }
     }
@@ -91,6 +90,6 @@ struct FestivalListView: View {
 
 struct FestivalListView_Previews: PreviewProvider {
     static var previews: some View {
-        FestivalListView(viewModel: FestivalListViewModel())
+        FestivalListView(viewModel: FestivalListViewModel(), token: "token")
     }
 }
