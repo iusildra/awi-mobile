@@ -5,15 +5,18 @@ struct ZoneListView: View {
     @State private var searchString = ""
     @ObservedObject var viewModel: ZoneListViewModel
     @StateObject var zoneListViewModel: ZoneListViewModel = ZoneListViewModel()
+    @Binding private var token: String
     
-    init(viewModel: ZoneListViewModel){
+    init(viewModel: ZoneListViewModel, token: Binding<String>){
         self.viewModel = viewModel
         self.editable = true
+        self._token = token
     }
     
-    init(viewModel: ZoneListViewModel, editable: Bool){
+    init(viewModel: ZoneListViewModel, editable: Bool, token: Binding<String>){
         self.viewModel = viewModel
         self.editable = editable
+        self._token = token
     }
     
     private var zoneListState : ZoneListState {
@@ -39,7 +42,7 @@ struct ZoneListView: View {
                     List {
                         ForEach(searchString == "" ? zoneListViewModel.datavm : zoneListViewModel.datavm.filter { $0.zone.name.contains(searchString) }, id: \.zone.id) {
                             vm in
-                            NavigationLink(destination: ZoneView(vm: vm)){
+                            NavigationLink(destination: ZoneView(vm: vm, token: self.$token)){
                                 Text(vm.name)
                                     .fontWeight(.bold)
                                     .foregroundColor(.blue)
@@ -65,7 +68,7 @@ struct ZoneListView: View {
                 if editable {
                     VStack {
                         HStack{
-                            NavigationLink(destination: EditZoneView(zoneListVM: self.zoneListViewModel)){
+                            NavigationLink(destination: EditZoneView(zoneListVM: self.zoneListViewModel, token: self.$token)){
                                 Text("Edit a zone")
                                     .fontWeight(.bold)
                                     .foregroundColor(.cyan)
@@ -98,8 +101,8 @@ struct ZoneListView: View {
 }
 
 
-struct ZoneListView_Previews: PreviewProvider {
+/*struct ZoneListView_Previews: PreviewProvider {
     static var previews: some View {
         ZoneListView(viewModel: ZoneListViewModel())
     }
-}
+}*/

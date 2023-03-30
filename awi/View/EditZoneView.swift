@@ -9,6 +9,7 @@ struct EditZoneView: View {
     @State var zone: Zone?
     @ObservedObject var viewModelCreation: ZoneViewModel = ZoneViewModel(zone: Zone(id: -1, name: "", festivalId: "", nbVolunteers: -1))
     @ObservedObject var zoneListVM: ZoneListViewModel
+    @Binding private var token: String
     
     private var creationState : CreateZoneIntentState {
         return viewModelCreation.creationState
@@ -18,8 +19,9 @@ struct EditZoneView: View {
         return zoneListVM.datavm.map{$0.name}
     }
     
-    init(zoneListVM: ZoneListViewModel) {
+    init(zoneListVM: ZoneListViewModel, token: Binding<String>) {
         self.zoneListVM = zoneListVM
+        self._token = token
     }
     
     var body: some View {
@@ -63,7 +65,7 @@ struct EditZoneView: View {
                             if (name != "") && volunteerRequired > 0 && festivalName.count > 0 {
                                 Section {
                                     Divider()
-                                    Button(action: {ZoneDAO.createZone(name: name, festivalId: festivalId, nbRequiredVolunteers: volunteerRequired, vm: viewModelCreation)}){
+                                    Button(action: {ZoneDAO.createZone(name: name, festivalId: festivalId, nbRequiredVolunteers: volunteerRequired, vm: viewModelCreation, token: self.token)}){
                                         Text("Validate")
                                             .fontWeight(.bold)
                                             .frame(alignment: .center)
@@ -119,8 +121,8 @@ struct EditZoneView: View {
     }
 }
 
-struct EditZoneView_Previews: PreviewProvider {
+/*struct EditZoneView_Previews: PreviewProvider {
     static var previews: some View {
         EditZoneView(zoneListVM: ZoneListViewModel())
     }
-}
+}*/

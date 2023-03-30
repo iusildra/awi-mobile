@@ -4,11 +4,11 @@ struct FestivalListView: View {
     @State private var searchString = ""
     @ObservedObject var viewModel: FestivalListViewModel
     @StateObject var festivalListViewModel: FestivalListViewModel = FestivalListViewModel()
-    @State var token : String;
+    @Binding private var token: String
     
-    init(viewModel: FestivalListViewModel,token: String){
+    init(viewModel: FestivalListViewModel, token: Binding<String>){
         self.viewModel = viewModel
-        self.token = token
+        self._token = token
     }
     
     private var festivalListState : FestivalListState {
@@ -34,7 +34,7 @@ struct FestivalListView: View {
                     List {
                         ForEach(searchString == "" ? festivalListViewModel.datavm : festivalListViewModel.datavm.filter { $0.festival.name.contains(searchString) }, id: \.festival.id) {
                             vm in
-                            NavigationLink(destination: FestivalView(vm: vm)){
+                            NavigationLink(destination: FestivalView(vm: vm, listVM: self.festivalListViewModel, token: self.$token)){
                                 Text(vm.name)
                                         .fontWeight(.bold)
                                         .foregroundColor(.blue)
@@ -84,12 +84,5 @@ struct FestivalListView: View {
                         }.padding()
             }
         }
-    }
-}
-
-
-struct FestivalListView_Previews: PreviewProvider {
-    static var previews: some View {
-        FestivalListView(viewModel: FestivalListViewModel(), token: "token")
     }
 }

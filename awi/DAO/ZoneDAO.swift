@@ -1,25 +1,14 @@
 import Foundation
 
-struct CreateZonePayload: Encodable {
+struct CreateZonePayload: Codable {
     let name: String
     let festival_id: String
     let nb_volunteers: Int
-    
-    init(name: String, festival_id: String, nb_volunteers: Int) {
-        self.name = name
-        self.festival_id = festival_id
-        self.nb_volunteers = nb_volunteers
-    }
 }
 
-struct UpdateZonePayload: Encodable {
-    let name: String?
-    let nb_volunteers: Int?
-    
-    init(name: String?, nb_volunteers: Int?) {
-        self.name = name
-        self.nb_volunteers = nb_volunteers
-    }
+struct UpdateZonePayload: Codable {
+    let name: String
+    let nb_volunteers: Int
 }
 
 class ZoneDAO {
@@ -60,15 +49,16 @@ class ZoneDAO {
 
         }.resume()
     }
-    static func deleteZone(zoneId: Int, vm: ZoneViewModel) {
-        ZoneIntent(vm: vm).deleting(id: zoneId)
-        guard let url = URL(string: API_ZONE_UNIQUE(id: zoneId)) else {
+    static func deleteZone(vm: ZoneViewModel, token: String) {
+        ZoneIntent(vm: vm).deleting(id: vm.zone.id)
+        guard let url = URL(string: API_ZONE_UNIQUE(id: vm.zone.id)) else {
             print(CREATE_URL_ERROR)
             return
         }
         
         var request = URLRequest(url: url)
         request.httpMethod = HttpMethod.DELETE.value
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         URLSession.shared.dataTask(with: request) { data, response, error in
             guard error == nil else {
                 print(httpError(httpMethod: HttpMethod.DELETE))
@@ -85,12 +75,12 @@ class ZoneDAO {
                 return
             }
             if response.statusCode == 200 {
-                ZoneIntent(vm: vm).zoneDeleted(id: zoneId)
+                ZoneIntent(vm: vm).zoneDeleted(id: vm.zone.id)
             }
         }.resume()
     }
     
-    static func createZone(name: String, festivalId: String, nbRequiredVolunteers: Int, vm: ZoneViewModel) {
+    static func createZone(name: String, festivalId: String, nbRequiredVolunteers: Int, vm: ZoneViewModel, token: String) {
         ZoneIntent(vm: vm).creating()
         guard let url = URL(string: API_ZONE) else {
             print(CREATE_URL_ERROR)
@@ -101,6 +91,8 @@ class ZoneDAO {
         let body = try! JSONEncoder().encode(CreateZonePayload(name: name, festival_id: festivalId, nb_volunteers: nbRequiredVolunteers))
         request.httpMethod = HttpMethod.POST.value
         request.httpBody = body
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         URLSession.shared.dataTask(with: request) { data, response, error in
             guard error == nil else {
                 print(httpError(httpMethod: HttpMethod.POST))
@@ -122,17 +114,21 @@ class ZoneDAO {
         }.resume()
     }
     
-    static func updateZone(zoneId: Int, name: String?, nbRequiredVolunteers: Int?, vm: ZoneViewModel) {
+    static func updateZone(zoneId: Int, name: String, nbRequiredVolunteers: Int, vm: ZoneViewModel, token: String) {
         ZoneIntent(vm: vm).creating()
         guard let url = URL(string: API_ZONE_UNIQUE(id: zoneId)) else {
             print(CREATE_URL_ERROR)
             return
         }
         
+        let encoder = JSONEncoder()
+        //encoder.outputFormatting = .prettyPrinted
         var request = URLRequest(url: url)
-        let body = try! JSONEncoder().encode(UpdateZonePayload(name: name, nb_volunteers: nbRequiredVolunteers))
+        let body = try! encoder.encode(UpdateZonePayload(name: name, nb_volunteers: nbRequiredVolunteers))
         request.httpMethod = HttpMethod.PATCH.value
         request.httpBody = body
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         URLSession.shared.dataTask(with: request) { data, response, error in
             guard error == nil else {
                 print(httpError(httpMethod: HttpMethod.PATCH))
@@ -144,6 +140,7 @@ class ZoneDAO {
                 print(RECEIVE_DATA_ERROR)
                 return
             }
+
             guard let response = response as? HTTPURLResponse, (200 ..< 299) ~= response.statusCode else {
                 print(HTTP_REQUEST_FAILED)
                 return

@@ -106,13 +106,13 @@ class FestivalIntent {
     func deleted() {
         self.festivalVM.deletionState = .READY
     }
-    func deleting(id: Int) {
+    func deleting(id: String) {
         self.festivalVM.deletionState = .DELETING
     }
     func deletingError(error: Error) {
         self.festivalVM.deletionState = .ERROR("\(error)")
     }
-    func zoneDeleted(id: Int) {
+    func zoneDeleted(id: String) {
         DispatchQueue.main.async {
             self.festivalVM.deletionState = .DELETED
         }

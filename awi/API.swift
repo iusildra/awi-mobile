@@ -1,8 +1,10 @@
 let API_ROOT = "https://awi-mano-api.cluster-ig4.igpolytech.fr"
 
 let API_ZONE = "\(API_ROOT)/zone"
-let API_FESTIVAL = "\(API_ROOT)/festival"
 func API_ZONE_UNIQUE(id: Int) -> String { "\(API_ZONE)/\(id)" }
+
+let API_FESTIVAL = "\(API_ROOT)/festival"
+func API_FESTIVAL_UNIQUE (id: String) -> String { "\(API_FESTIVAL)/\(id)" }
 
 let API_VOLUNTEER = "https://awi-mano-api.cluster-ig4.igpolytech.fr/volunteer"
 

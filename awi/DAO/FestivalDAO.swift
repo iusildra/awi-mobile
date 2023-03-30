@@ -1,19 +1,19 @@
 import Foundation
 
-struct CreateFestivalPayload: Encodable {
+struct CreateFestivalPayload: Codable {
     let name: String
     let year: Int
     let active: Bool
     let duration: Int
-    /*let zones: [Zone]
+    /*let zones: [Festival]
     let days: [FestivalDay]*/
 }
 
-struct UpdateFestivalPayload: Encodable {
-    let name: String?
-    let year: Int?
-    let active: Bool?
-    let duration: Int?
+struct UpdateFestivalPayload: Codable {
+    let name: String
+    let year: Int
+    let active: Bool
+    let duration: Int
 }
 
 class FestivalDAO {
@@ -64,5 +64,75 @@ class FestivalDAO {
                     }
                 }
 
-            }.resume()    }
+            }.resume()
+    }
+    
+    static func deleteFestival(vm: FestivalViewModel, token: String) {
+        let festivalId = vm.festival.id
+        FestivalIntent(vm: vm).deleting(id: festivalId)
+        guard let url = URL(string: API_FESTIVAL_UNIQUE(id: festivalId)) else {
+            print(CREATE_URL_ERROR)
+            return
+        }
+        
+        print(url)
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = HttpMethod.DELETE.value
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            guard error == nil else {
+                print(httpError(httpMethod: HttpMethod.DELETE))
+                FestivalIntent(vm: vm).deletingError(error: error!)
+                print(error!)
+                return
+            }
+            guard let _ = data else {
+                print(RECEIVE_DATA_ERROR)
+                return
+            }
+            guard let response = response as? HTTPURLResponse, (200 ..< 299) ~= response.statusCode else {
+                print(HTTP_REQUEST_FAILED)
+                return
+            }
+            if response.statusCode == 200 {
+                FestivalIntent(vm: vm).zoneDeleted(id: festivalId)
+            }
+        }.resume()
+    }
+    
+    static func updateFestival(festivalId: String, name: String, year: Int, active: Bool, duration: Int, vm: FestivalViewModel, token: String) {
+        FestivalIntent(vm: vm).creating()
+        guard let url = URL(string: API_FESTIVAL_UNIQUE(id: festivalId)) else {
+            print(CREATE_URL_ERROR)
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        let body = try! JSONEncoder().encode(UpdateFestivalPayload(name: name, year: year, active: active, duration: duration))
+        request.httpMethod = HttpMethod.PATCH.value
+        request.httpBody = body
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            guard error == nil else {
+                print(httpError(httpMethod: HttpMethod.PATCH))
+                FestivalIntent(vm: vm).creatingError(error: error!)
+                print(error!)
+                return
+            }
+            guard let _ = data else {
+                print(RECEIVE_DATA_ERROR)
+                return
+            }
+            guard let response = response as? HTTPURLResponse, (200 ..< 299) ~= response.statusCode else {
+                print(HTTP_REQUEST_FAILED)
+                return
+            }
+            if (response.statusCode == 200) {
+                FestivalIntent(vm: vm).zoneCreated()
+            }
+        }.resume()
+    }
 }

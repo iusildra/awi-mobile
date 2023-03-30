@@ -16,12 +16,12 @@ struct ContentView: View {
                                 Image(systemName: "house")
                                 Text("Home")
                             }.tag(0)
-                    FestivalListView(viewModel: FestivalListViewModel())
+                    FestivalListView(viewModel: FestivalListViewModel(), token: self.$token)
                         .tabItem {
                             Image(systemName: "party.popper.fill")
                             Text("Festivals")
                         }.tag(1)
-                    ZoneListView(viewModel: ZoneListViewModel())
+                    ZoneListView(viewModel: ZoneListViewModel(), token: self.$token)
                             .tabItem {
                                 Image(systemName: "map")
                                 Text("Zones")

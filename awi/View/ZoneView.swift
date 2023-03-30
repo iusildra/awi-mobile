@@ -8,12 +8,14 @@ struct ZoneView: View {
     @State private var showingAlert = false
     @State private var showingIncorrect = false
     @State private var modify = false
+    @Binding var token: String
     // Different lists...
     
-    init(vm: ZoneViewModel) {
+    init(vm: ZoneViewModel, token: Binding<String>) {
         self.viewModel = vm
         self.intent = ZoneIntent(vm: vm)
         self.intent.addObserver(vm: vm)
+        self._token = token
     }
     
     private var valueFormatter: NumberFormatter = {
@@ -29,36 +31,57 @@ struct ZoneView: View {
                 switch self.viewModel.deletionState {
                 case .READY:
                     Divider()
-                    HStack {
-                        Spacer()
+                    if !modify {
                         HStack {
-                            Text("\(viewModel.name)").fontWeight(.bold).font(.system(size: 22))
+                            Button(action: {
+                                modify = true
+                            }){
+                                Text("Modifier")
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.blue)
+                                    .padding()
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 20)
+                                            .stroke(Color.blue, lineWidth: 5)
+                                    )
+                            }
+                            Button(action: {
+                                ZoneDAO.deleteZone(vm: self.viewModel, token: self.token)
+                            }){
+                                Text("Supprimer")
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.primary)
+                                    .padding()
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 20)
+                                            .stroke(Color.primary, lineWidth: 5)
+                                    )
+                            }
                         }
-                        Spacer()
-                    }.frame(alignment: .center)
-                    Divider()
-                    HStack {
+                    }
+                    VStack {
                         Text("Festival ID : \(self.viewModel.festivalId)")
                         Divider()
                         Text("Required volunteers : \(self.viewModel.nbRequiredVolunteers)")
                     }
                     if modify {
-                        Section {
-                            VStack {
-                                HStack {
-                                    Text("Name : ").fontWeight(.bold).padding()
-                                    TextField("", text: $viewModel.name).padding().onSubmit {}
-                                    Button("Modifier") {
-                                        //TODO: if zonelist contains -> cannot change
-                                        intent.intentToChange(name: self.viewModel.name)
-                                    }.padding()
-                                }
-                                Text("Festival ID : \(self.viewModel.festivalId)").padding()
-                                HStack {
-                                    Text("Required volunteers : ").fontWeight(.bold).padding()
-                                    TextField("", value: $viewModel.nbRequiredVolunteers, formatter: valueFormatter)
+                        VStack {
+                            HStack {
+                                Text("Name : ").fontWeight(.bold).padding()
+                                TextField("", text: $viewModel.name).padding().onSubmit {
+                                    intent.intentToChange(name: self.viewModel.name)
                                 }
                             }
+                            HStack {
+                                Text("Required volunteers : ").fontWeight(.bold).padding()
+                                TextField("", value: $viewModel.nbRequiredVolunteers, formatter: valueFormatter).onSubmit {
+                                    intent.intentToChange(name: self.viewModel.name)
+                                }
+                            }
+                            Button(action: {
+                                self.modify = false
+                                ZoneDAO.updateZone(zoneId: self.viewModel.zone.id, name: self.viewModel.name, nbRequiredVolunteers: self.viewModel.nbRequiredVolunteers, vm: self.viewModel, token: self.token)
+                            }, label: { Text("Save") })
                         }
                     }
                 case .DELETING:
