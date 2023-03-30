@@ -8,6 +8,9 @@ func API_FESTIVAL_UNIQUE (id: String) -> String { "\(API_FESTIVAL)/\(id)" }
 
 let API_VOLUNTEER = "https://awi-mano-api.cluster-ig4.igpolytech.fr/volunteer"
 
+let API_SIGNIN = "\(API_ROOT)/auth/signin"
+let API_SIGNUP = "\(API_ROOT)/auth/signup"
+
 let CREATE_URL_ERROR = "Error: Cannot create URL"
 let RECEIVE_DATA_ERROR = "Error: Did not receive data"
 let HTTP_REQUEST_FAILED = "Error: HTTP request failed"

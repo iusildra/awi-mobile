@@ -123,22 +123,24 @@ struct Auth: View {
     }
 
     func login() -> Void {
+        
+        let apiRoute = SignUp ? API_SIGNUP : API_SIGNIN
+        let body = try! SignUp ?
+        JSONEncoder().encode(SignUpDTO(username: self.auth.username, firstName: self.auth.firstName, lastName: self.auth.lastName, email: self.auth.email.lowercased(), password: self.auth.password)) : JSONEncoder().encode(SignInDTO(email: auth.email.lowercased(), password: auth.password))
 
-        let url = URL(string: "https://awi-mano-api.cluster-ig4.igpolytech.fr/auth/signin")!
+        let url = URL(string: apiRoute)!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        let parameters = try! JSONEncoder().encode(SignInDTO(email: auth.email.lowercased(), password: auth.password))
-        print(String(data: parameters, encoding: .utf8)!)
+        print(String(data: body, encoding: .utf8)!)
 
-        request.httpBody = parameters
+        request.httpBody = body
         print("Data fetching started!")
         URLSession.shared.dataTask(with: request) { data, response, error in
 
 
                     if let data = data {
                         do {
-//                            print(String(data: data, encoding: .utf8)!)
                             let decodedResponse = try JSONDecoder().decode(SignInResponse.self, from: data)
                             print(decodedResponse)
                             volunteer = Volunteer(id: decodedResponse.sub, username: decodedResponse.username,firstName: decodedResponse.firstName,lastName: decodedResponse.lastName,email: decodedResponse.email, isAdmin: decodedResponse.isAdmin)
