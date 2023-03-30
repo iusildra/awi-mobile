@@ -64,18 +64,7 @@ struct FestivalListView: View {
                 }
 
                     HStack {
-                        Button(action: {
-
-                        }){
-                            Text("Delete")
-                                .fontWeight(.bold)
-                                .foregroundColor(.white)
-                                .padding()
-                                .background(Color.red)
-                                .cornerRadius(8)
-                        }.padding()
-
-                            NavigationLink("Add a festival", destination : CreateFestivalView(token: $token))
+                        NavigationLink("Add a festival", destination : CreateFestivalView(token: $token))
                                     .fontWeight(.bold)
                                     .foregroundColor(.white)
                                     .padding()

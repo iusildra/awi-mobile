@@ -3,15 +3,15 @@ import Foundation
 struct FestivalDayDTO: Decodable, Hashable, Identifiable {
     let id: Int
     let festival_id: String
-    let date: Date
-    let open_at: Date
-    let close_at: Date
+    let date: String
+    let open_at: String
+    let close_at: String
 }
 
 protocol FestivalDayObserver {
-    func changedDate(date: Date, id: Int)
-    func changedOpening(start: Date, id: Int)
-    func changedClosing(end: Date, id: Int)
+    func changedDate(date: String, id: Int)
+    func changedOpening(start: String, id: Int)
+    func changedClosing(end: String, id: Int)
 }
 
 enum FestivalDayPropertyChange {
@@ -20,33 +20,37 @@ enum FestivalDayPropertyChange {
     case CLOSING
 }
 
-class FestivalDay: ObservableObject, Equatable {
+class FestivalDay: ObservableObject, Hashable, Equatable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+        hasher.combine(date)
+        hasher.combine(openAt)
+        hasher.combine(closeAt)
+    }
+    
     static func == (lhs: FestivalDay, rhs: FestivalDay) -> Bool {
         lhs.id == rhs.id && lhs.date == rhs.date && lhs.openAt == rhs.openAt && lhs.closeAt == rhs.closeAt
     }
     
     private var observers: [FestivalDayObserver] = []
     let id: Int
-    var date: Date {
+    var date: String {
         didSet {
-            if date < Date.now { date = oldValue }
             notifyObservers(change: .DATE)
         }
     }
-    var openAt: Date {
+    var openAt: String {
         didSet {
-            if openAt < Date.now { openAt =  oldValue }
             notifyObservers(change: .OPENING)
         }
     }
-    var closeAt: Date {
+    var closeAt: String {
         didSet {
-            if closeAt < openAt { closeAt = oldValue }
             notifyObservers(change: .CLOSING)
         }
     }
     
-    init(id: Int, date: Date, openAt: Date, closedAt: Date) {
+    init(id: Int, date: String, openAt: String, closedAt: String) {
         self.id = id
         self.date = date
         self.openAt = openAt

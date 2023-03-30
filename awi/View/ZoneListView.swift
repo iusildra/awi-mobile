@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct ZoneListView: View {
-    private let editable: Bool
     @State private var searchString = ""
     @ObservedObject var viewModel: ZoneListViewModel
     @StateObject var zoneListViewModel: ZoneListViewModel = ZoneListViewModel()
@@ -9,13 +8,6 @@ struct ZoneListView: View {
     
     init(viewModel: ZoneListViewModel, token: Binding<String>){
         self.viewModel = viewModel
-        self.editable = true
-        self._token = token
-    }
-    
-    init(viewModel: ZoneListViewModel, editable: Bool, token: Binding<String>){
-        self.viewModel = viewModel
-        self.editable = editable
         self._token = token
     }
     
@@ -63,36 +55,6 @@ struct ZoneListView: View {
                     .searchable(text: $searchString)
                     .onAppear{
                         ZoneDAO.fetchZone(list: self.viewModel)
-                    }
-                }
-                if editable {
-                    VStack {
-                        HStack{
-                            NavigationLink(destination: EditZoneView(zoneListVM: self.zoneListViewModel, token: self.$token)){
-                                Text("Edit a zone")
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.cyan)
-                                    .padding()
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 20)
-                                            .stroke(Color.cyan, lineWidth: 5)
-                                    )
-                                EmptyView()
-                            }
-                        }
-                        
-                        Button(action: {
-                            ZoneDAO.fetchZone(list: zoneListViewModel)
-                        }){
-                            Text("Refresh")
-                                .fontWeight(.bold)
-                                .foregroundColor(.blue)
-                                .padding()
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 20)
-                                        .stroke(Color.blue, lineWidth: 5)
-                                )
-                        }.padding()
                     }
                 }
             }

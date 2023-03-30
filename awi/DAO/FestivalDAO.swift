@@ -1,12 +1,18 @@
 import Foundation
 
 struct CreateFestivalPayload: Codable {
-    let name: String
-    let year: Int
-    let active: Bool
-    let duration: Int
-    /*let zones: [Festival]
-    let days: [FestivalDay]*/
+    var name: String
+    var year: Int
+    var active: Bool
+    var duration: Int
+    //let zones: [Festival]
+    var festival_days: [CreateFestivalDayPayload]
+}
+
+struct CreateFestivalDayPayload: Codable {
+    let date: String
+    let open_at: String
+    let close_at: String
 }
 
 struct UpdateFestivalPayload: Codable {
@@ -65,6 +71,36 @@ class FestivalDAO {
                 }
 
             }.resume()
+    }
+    
+    static func createFestival(_ festival: CreateFestivalPayload, token: String) {
+        guard let url = URL(string: API_FESTIVAL) else {
+            print(CREATE_URL_ERROR)
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        let body = try! JSONEncoder().encode(festival)
+        request.httpMethod = HttpMethod.POST.value
+        request.httpBody = body
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        print(String(data: body, encoding: .utf8)!)
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            guard error == nil else {
+                print(httpError(httpMethod: HttpMethod.POST))
+                print(error!)
+                return
+            }
+            guard let _ = data else {
+                print(RECEIVE_DATA_ERROR)
+                return
+            }
+            guard let response = response as? HTTPURLResponse, (200 ..< 299) ~= response.statusCode else {
+                print(HTTP_REQUEST_FAILED)
+                return
+            }
+        }.resume()
     }
     
     static func deleteFestival(vm: FestivalViewModel, token: String) {

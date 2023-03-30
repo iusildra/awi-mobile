@@ -29,6 +29,23 @@ struct FestivalView: View {
         formatter.maximumFractionDigits = 2
         return formatter
     }()
+    
+    private var dateFormatter: DateFormatter {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale.current
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .short
+        return dateFormatter
+    }
+    
+    private var timeFormatter: DateFormatter {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale.current
+        dateFormatter.timeStyle = .medium
+        dateFormatter.dateFormat = "HH:mm:ss"
+        return dateFormatter
+    }
+
 
     var body: some View {
         ScrollView {
@@ -107,7 +124,21 @@ struct FestivalView: View {
                                 }, label: { Text("Save") })
                         }
                     }
-                    ZoneListView(viewModel: ZoneListViewModel(data: self.viewModel.zones), editable: false, token: self.$token)
+                    Divider()
+                    ZoneListView(viewModel: ZoneListViewModel(data: self.viewModel.festival.zones), token: self.$token)
+                    Divider()
+                    ScrollView {
+                        ForEach(self.viewModel.days, id: \.self, content: { day in
+                            let dateString = dateFormatter.string(from: (try? Date(day.date, strategy: .iso8601)) ?? Date())
+                            let openString = (try? Date(day.openAt, strategy: .iso8601)) == nil ? "N/A" : dateFormatter.string(from: try! Date(day.openAt, strategy: .iso8601))
+                            let closeString = (try? Date(day.closeAt, strategy: .iso8601)) == nil ? "N/A" : dateFormatter.string(from: try! Date(day.closeAt, strategy: .iso8601))
+                            VStack {
+                                Text("Date: \(dateString)")
+                                Text("Open: \(openString)")
+                                Text("Close: \(closeString)")
+                            }.padding(8)
+                        })
+                    }
                 case .DELETING:
                     Text("Festival deletion...")
                     ProgressView().progressViewStyle(CircularProgressViewStyle(tint: .black))
