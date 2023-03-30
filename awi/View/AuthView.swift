@@ -33,43 +33,70 @@ struct Auth: View {
                     .padding()
             Spacer().frame(height: 20)
             if SignUp {
+                VStack(alignment : .leading){
+                    Text("Username")
+                            .font(.caption).foregroundColor(.white)
                 TextField("Username", text: $auth.username)
                         .padding()
                         .background(Color(.systemGray6))
                         .cornerRadius(10.0)
                         .padding(.bottom, 20)
-                TextField("Firstname", text: $auth.firstName)
-                        .padding()
-                        .background(Color(.systemGray6))
-                        .cornerRadius(10.0)
-                        .padding(.bottom, 20)
-                TextField("Lastname", text: $auth.lastName)
+
+                }
+                VStack(alignment : .leading){
+                    Text("Firstname")
+                            .font(.caption).foregroundColor(.white)
+                    TextField("Firstname", text: $auth.firstName)
+                            .padding()
+                            .background(Color(.systemGray6))
+                            .cornerRadius(10.0)
+                            .padding(.bottom, 20)
+                }
+                VStack(alignment : .leading){
+                    Text("Lastname")
+                            .font(.caption).foregroundColor(.white)
+                    TextField("Lastname", text: $auth.lastName)
+                            .padding()
+                            .background(Color(.systemGray6))
+                            .cornerRadius(10.0)
+                            .padding(.bottom, 20)
+                }
+            }
+            VStack(alignment : .leading){
+                Text("Email")
+                        .font(.caption).foregroundColor(.white)
+                TextField("Email", text: $auth.email)
                         .padding()
                         .background(Color(.systemGray6))
                         .cornerRadius(10.0)
                         .padding(.bottom, 20)
             }
-            TextField("Email", text: $auth.email)
-                    .padding()
-                    .background(Color(.systemGray6))
-                    .cornerRadius(10.0)
-                    .padding(.bottom, 20)
-            SecureField("Password", text: $auth.password)
-                    .padding()
-                    .background(Color(.systemGray6))
-                    .cornerRadius(10.0)
-                    .padding(.bottom, 20)
+            VStack(alignment : .leading){
+                Text("Password")
+                        .font(.caption).foregroundColor(.white)
+                SecureField("Password", text: $auth.password)
+                        .padding()
+                        .background(Color(.systemGray6))
+                        .cornerRadius(10.0)
+                        .padding(.bottom, 20)
+            }
+
+
             Text("We couldn't find an account for this email/password combination. Please try again.")
                     .foregroundColor(Color(red: 0.9, green: 0.5, blue: 0.0))
                     .fontWeight(.bold)
                     .opacity(errorSign ? 1 : 0)
                     .frame(height: errorSign ? 60 : 0)
             if SignUp {
-                SecureField("Password confirmation", text: $passwordConfirmation)
-                        .padding()
-                        .background(Color(.systemGray6))
-                        .cornerRadius(10.0)
-                        .padding(.bottom, 20)
+                VStack(alignment : .leading){
+                    Text("Password confirmation")
+                            .font(.caption).foregroundColor(.white)
+                    SecureField("Password confirmation", text: $passwordConfirmation)
+                            .padding()
+                            .background(Color(.systemGray6))
+                            .cornerRadius(10.0)
+                            .padding(.bottom, 20)
+                }
                 Button(action: {
                     self.isSignedIn = true
                 }) {

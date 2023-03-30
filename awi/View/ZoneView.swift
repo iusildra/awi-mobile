@@ -38,24 +38,20 @@ struct ZoneView: View {
                             }){
                                 Text("Modifier")
                                     .fontWeight(.bold)
-                                    .foregroundColor(.blue)
+                                    .foregroundColor(.white)
                                     .padding()
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 20)
-                                            .stroke(Color.blue, lineWidth: 5)
-                                    )
+                                    .background(Color.blue)
+                                    .cornerRadius(8)
                             }
                             Button(action: {
                                 ZoneDAO.deleteZone(vm: self.viewModel, token: self.token)
                             }){
                                 Text("Supprimer")
                                     .fontWeight(.bold)
-                                    .foregroundColor(.primary)
+                                    .foregroundColor(.white)
                                     .padding()
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 20)
-                                            .stroke(Color.primary, lineWidth: 5)
-                                    )
+                                    .background(Color.red)
+                                    .cornerRadius(8)
                             }
                         }
                     }
@@ -66,18 +62,28 @@ struct ZoneView: View {
                     }
                     if modify {
                         VStack {
-                            HStack {
-                                Text("Name : ").fontWeight(.bold).padding()
+                            VStack(alignment: .leading) {
+                                Text("Name : ").font(.caption)
                                 TextField("", text: $viewModel.name).padding().onSubmit {
                                     intent.intentToChange(name: self.viewModel.name)
                                 }
+                                        .fontWeight(.bold)
+                                        .padding(10)
+                                        .background(Color(.systemGray6))
+                                        .cornerRadius(8)
                             }
-                            HStack {
-                                Text("Required volunteers : ").fontWeight(.bold).padding()
+                                    .padding()
+                            VStack(alignment : .leading) {
+                                Text("Required volunteers : ").font(.caption)
                                 TextField("", value: $viewModel.nbRequiredVolunteers, formatter: valueFormatter).onSubmit {
-                                    intent.intentToChange(name: self.viewModel.name)
-                                }
+                                            intent.intentToChange(name: self.viewModel.name)
+                                        }
+                                        .fontWeight(.bold)
+                                        .padding(10)
+                                        .background(Color(.systemGray6))
+                                        .cornerRadius(8)
                             }
+                                    .padding()
                             Button(action: {
                                 self.modify = false
                                 ZoneDAO.updateZone(zoneId: self.viewModel.zone.id, name: self.viewModel.name, nbRequiredVolunteers: self.viewModel.nbRequiredVolunteers, vm: self.viewModel, token: self.token)

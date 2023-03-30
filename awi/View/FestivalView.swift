@@ -70,24 +70,20 @@ struct FestivalView: View {
                         }){
                             HStack {
                                 Text("Modifier")
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.blue)
-                                    .padding()
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 20)
-                                            .stroke(Color.blue, lineWidth: 5)
-                                    )
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.white)
+                                        .padding()
+                                        .background(Color.blue)
+                                        .cornerRadius(8)
                                 Button(action: {
                                     FestivalDAO.deleteFestival(vm: self.viewModel, token: self.token)
                                 }){
                                     Text("Supprimer")
-                                        .fontWeight(.bold)
-                                        .foregroundColor(.primary)
-                                        .padding()
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 20)
-                                                .stroke(Color.primary, lineWidth: 5)
-                                        )
+                                            .fontWeight(.bold)
+                                            .foregroundColor(.white)
+                                            .padding()
+                                            .background(Color.red)
+                                            .cornerRadius(8)
                                 }
                             }
                         }
@@ -125,20 +121,23 @@ struct FestivalView: View {
                         }
                     }
                     Divider()
-                    ZoneListView(viewModel: ZoneListViewModel(data: self.viewModel.festival.zones), token: self.$token)
-                    Divider()
                     ScrollView {
                         ForEach(self.viewModel.days, id: \.self, content: { day in
                             let dateString = dateFormatter.string(from: (try? Date(day.date, strategy: .iso8601)) ?? Date())
                             let openString = (try? Date(day.openAt, strategy: .iso8601)) == nil ? "N/A" : dateFormatter.string(from: try! Date(day.openAt, strategy: .iso8601))
                             let closeString = (try? Date(day.closeAt, strategy: .iso8601)) == nil ? "N/A" : dateFormatter.string(from: try! Date(day.closeAt, strategy: .iso8601))
                             VStack {
-                                Text("Date: \(dateString)")
-                                Text("Open: \(openString)")
-                                Text("Close: \(closeString)")
+                                Text("Day: \(day.date)")
+//                                Text("Date: \(dateString)")
+//                                Text("Open: \(openString)")
+                                Text("Open at : \(day.openAt)")
+                                Text("Close: \(day.closeAt)")
+//                                Text("Close: \(closeString)")
                             }.padding(8)
                         })
                     }
+                    Divider()
+                    ZoneListView(viewModel: ZoneListViewModel(data: self.viewModel.festival.zones), token: self.$token)
                 case .DELETING:
                     Text("Festival deletion...")
                     ProgressView().progressViewStyle(CircularProgressViewStyle(tint: .black))
